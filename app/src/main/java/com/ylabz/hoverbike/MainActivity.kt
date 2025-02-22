@@ -6,18 +6,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,17 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.xr.compose.platform.LocalHasXrSpatialFeature
 import androidx.xr.compose.platform.LocalSession
 import androidx.xr.compose.platform.LocalSpatialCapabilities
-import androidx.xr.compose.spatial.EdgeOffset
-import androidx.xr.compose.spatial.Orbiter
-import androidx.xr.compose.spatial.OrbiterEdge
 import androidx.xr.compose.spatial.Subspace
-import androidx.xr.compose.subspace.SpatialPanel
-import androidx.xr.compose.subspace.layout.SpatialRoundedCornerShape
-import androidx.xr.compose.subspace.layout.SubspaceModifier
-import androidx.xr.compose.subspace.layout.height
-import androidx.xr.compose.subspace.layout.movable
-import androidx.xr.compose.subspace.layout.resizable
-import androidx.xr.compose.subspace.layout.width
 import com.ylabz.hoverbike.ui.theme.HoverBikeTheme
 
 class MainActivity : ComponentActivity() {
@@ -67,15 +59,34 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun My2DContent(onRequestFullSpaceMode: () -> Unit) {
     Surface {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+            modifier = Modifier.fillMaxSize()
         ) {
-            MainContent(modifier = Modifier.padding(48.dp))
-            if (LocalHasXrSpatialFeature.current) {
-                FullSpaceModeIconButton(
-                    onClick = onRequestFullSpaceMode,
-                    modifier = Modifier.padding(32.dp)
+            Column(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    MainContent(modifier = Modifier.padding(48.dp))
+                    if (LocalHasXrSpatialFeature.current) {
+                        FullSpaceModeIconButton(
+                            onClick = onRequestFullSpaceMode,
+                            modifier = Modifier.padding(32.dp)
+                        )
+                    }
+                }
+                FlashyBikeInfoPanel(
+                    speed = 25.3,
+                    distance = 12.8,
+                    cadence = 90.0,
+                    heartRate = 135,
+                    altitude = 150.5,
+                    calories = 320,
+                    power = 250
                 )
             }
         }
