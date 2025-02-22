@@ -62,30 +62,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@SuppressLint("RestrictedApi")
-@Composable
-fun MySpatialContent(onRequestHomeSpaceMode: () -> Unit) {
-    SpatialPanel(SubspaceModifier.width(1280.dp).height(800.dp).resizable().movable()) {
-        Surface {
-            MainContent(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(48.dp)
-            )
-        }
-        Orbiter(
-            position = OrbiterEdge.Top,
-            offset = EdgeOffset.inner(offset = 20.dp),
-            alignment = Alignment.End,
-            shape = SpatialRoundedCornerShape(CornerSize(28.dp))
-        ) {
-            HomeSpaceModeIconButton(
-                onClick = onRequestHomeSpaceMode,
-                modifier = Modifier.size(56.dp)
-            )
-        }
-    }
-}
 
 @SuppressLint("RestrictedApi")
 @Composable
